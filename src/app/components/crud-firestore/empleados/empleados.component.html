@@ -1,0 +1,213 @@
+
+<h1 class="animated fadeIn fast text-center">Lista de Empleados</h1>
+
+
+
+
+
+
+
+<div class="container ">
+
+  <!-- Button trigger modal -->
+  
+
+  <!-- Modal -->
+  <div class="modal fade modal-contacto" id="modalContacto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-header" >
+          <h5 class="modal-title">Agregar Empleado</h5>
+           
+        </div>
+        <div class="modal-body">
+
+          <form  [formGroup]='empleadoForm'
+                 (ngSubmit)="crearEmpleado()" >
+
+            <div class="form-group ml-2 mr-2">
+              <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese su nombre"
+              [ngClass]="{
+                'is-valid': nombre.dirty && !nombre.errors,
+                'is-invalid': nombre.dirty && nombre.errors
+              }"  >
+
+
+              <!-- Muestra si es correcto o no (bootstrap) -->
+              <div class="valid-feedback">
+                <span>¡Correcto!</span>
+              </div>
+              <div class="invalid-feedback">
+                <span *ngIf="nombre.errors?.required">Valor requerido</span>
+                <span *ngIf="nombre.errors?.minlength">Se necesitan minimo {{nombre.errors?.minlength.requiredLength}} caracteres y llevas {{nombre.errors?.minlength.actualLength}} caracteres</span>
+              </div>
+        
+            </div>
+
+            <div class="form-group ml-2 mr-2">
+                <input type="text" class="form-control" formControlName="apellidos"  placeholder="Ingrese Apellidos" 
+                [ngClass]="{
+                    'is-valid': apellidos.dirty && !apellidos.errors,
+                    'is-invalid': apellidos.dirty && apellidos.errors
+                  }" >
+
+                  <!-- Muestra si es correcto o no (bootstrap) -->
+              <div class="valid-feedback">
+                <span>¡Correcto!</span>
+              </div>
+              <div class="invalid-feedback">
+                <span *ngIf="apellidos.errors?.required">Valor requerido</span>
+                <span *ngIf="apellidos.errors?.minlength">Se necesitan minimo {{apellidos.errors?.minlength.requiredLength}} caracteres y llevas {{apellidos.errors?.minlength.actualLength}} caracteres</span>
+              </div>
+
+
+            </div>
+       
+            <div class="form-group ml-2 mr-2">  
+              <input type="email" class="form-control" formControlName="email"  placeholder="Enter email"
+              [ngClass]="{
+                'is-valid': email.dirty && !email.errors,
+                'is-invalid': email.dirty && email.errors
+              }" >
+
+              <div class="valid-feedback">
+                <span>¡Correcto!</span>
+              </div>
+      
+              <div class="invalid-feedback">
+                <span *ngIf="email.errors?.required">Valor requerido</span>
+                <span *ngIf="email.errors?.pattern">El formato no es correcto</span>
+                <span *ngIf="email.errors?.minlength">Se necesitan minimo {{email.errors?.minlength.requiredLength}} caracteres y llevas {{email.errors?.minlength.actualLength}} caracteres</span>
+              </div>
+            </div>
+
+            <div class="form-group ml-2 mr-2">
+                <select class="form-control" name="cargo" formControlName="cargo" >
+                  <option value="ingeniero" >Ingeniero</option>
+                  <option value="secretario">Secretaria</option>
+                  <option value="limpieza">Limpieza</option>
+                  <option value="seguridad">Seguridad</option>
+                
+                </select>
+              
+              
+            </div>
+            <hr>
+            <div class="form-group ml-2 mr-2">
+               
+                <button *ngIf="estado" 
+                      (click)="estado = false"
+                        class="btn btn-outline-success w-30" type="button">
+                        <i class="fa fa-smile-o"></i>
+                  Activo
+                </button>
+        
+                <button  *ngIf="!estado" 
+                        (click)="estado = true"
+             
+                        class="btn btn-outline-danger w-30" type="button">
+                        <i class="fa fa-ban"></i>
+                    Vacaciones
+                </button>
+        
+              </div>
+        
+               
+           
+             <div class="float-right ml-2 mr-2">
+              <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+              <button type="submit" [disabled]="!empleadoForm.valid"  class="btn btn-outline-primary ml-2 ">Agregar</button>
+        
+             </div>
+
+             
+          </form>
+       
+
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row animated fadeIn faster">
+  <div class="col text-right">
+
+    <button 
+            class="btn btn-primary"  type="button" class="btn btn-outline-primary  " data-toggle="modal" data-target="#modalContacto">
+      <i class="fa fa-plus"></i>
+      Agregar
+    </button>
+  </div>
+</div>
+
+
+<div class="row  ">
+
+
+  <table class="table animated fadeIn  mt-1" *ngIf=" !cargando && listEmpleado.length > 0">
+    <thead class="bg-dark text-white">
+      <tr >
+        <td>#</td>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Cargo</th>
+        <th scope="col">estado</th>
+        <th scope="col">Botones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let empleado of listEmpleado; let i = index">
+        
+        <td scope="row">{{i+1}}</td>
+        <td>{{empleado.nombre}}</td>
+        <td>{{empleado.apellidos}}</td>
+        <td>{{empleado.email}}</td>
+        <td>{{empleado.cargo}}</td>
+        <td>
+          <label  *ngIf="empleado.estado" class="badge badge-success">Activo</label>
+          <label  *ngIf="!empleado.estado" class="badge badge-danger">Vacaciones</label>
+        </td>
+        <td>
+          <button [routerLink]="['/crudFirestore/actualizar', empleado.id]" class="btn btn-info  mr-2"  type="button">
+            <i class="fa fa-pencil"></i>
+          
+          </button>
+          <button  (click)="eliminarEmpleado(empleado.id) "  class="btn btn-danger  "  type="button">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          
+          </button>
+
+          
+
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+</div>
+
+
+<div *ngIf="!cargando && listEmpleado.length === 0 "
+     class="alert alert-warning text-center mt-3 animated fadeIn faster">
+    <h4 class="alert-heading">No hay registros</h4>
+    <p>
+      <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+</div>
+
+<div  *ngIf="cargando"
+     class="alert alert-info text-center mt-3 animated fadeIn faster">
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-refresh fa-spin fa-3x text-white"></i>
+  </p>
+  <p class="mb-0">
+    Espere por favor
+  </p>
+</div>

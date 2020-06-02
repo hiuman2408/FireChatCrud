@@ -1,0 +1,102 @@
+
+<h1>Héroe <small>Nombre del Héroe</small> </h1>
+<hr>
+
+
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger"
+
+  
+    routerLinkActive="router-link-active"
+           [routerLink]="['/crudFirebase/listar']"  >
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+
+
+
+<div class="row animated fadeIn faster">
+  <div class="col">
+
+    <form [formGroup]='HeroeForm'
+         (ngSubmit)="crearHeroe()">
+
+      <div   class="form-group">
+        <label>Firebase ID</label>
+        <input type="text"
+               class="form-control"
+               placeholder="Firebase ID"
+               formControlName="id"
+               name="id"
+               
+              
+               >
+        <small class="form-text text-muted">Este campo es autogenerado</small>
+      </div>
+
+
+      <div class="form-group">
+          <label>Nombre</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="nombre"
+                 name="nombre"
+                 >
+      </div>
+
+      <div class="form-group">
+          <label>Poder</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="poder"
+                 name="poder"
+                 placeholder="Poder del héroe">
+      </div>
+
+      <div class="form-group">
+        <label>Estado</label>
+        <br>
+
+        <button  
+                *ngIf="heroe.vivo" 
+                (click)="heroe.vivo = false"
+                
+                class="btn btn-outline-success w-15" type="button">
+                <i class="fa fa-smile-o"></i>
+          Vivo
+        </button>
+
+        <button  
+                   *ngIf="!heroe.vivo" 
+                  (click)="heroe.vivo = true"
+                
+                class="btn btn-outline-danger w-15" type="button">
+                <i class="fa fa-ban"></i>
+            Muerto
+        </button>
+
+      </div>
+
+
+
+      <hr>
+      <div class="form-group text-center">
+        <button [disabled]="!HeroeForm.valid" type="submit"
+                class="btn btn-outline-success w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+
+
+    </form>
+
+
+  </div>
+</div>
+
+
+

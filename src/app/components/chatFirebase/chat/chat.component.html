@@ -1,0 +1,83 @@
+
+<div class="containerChat">
+     
+  <div class="messaging">
+
+      <div class="inbox_msg"> 
+        <div class="row  mt-2 mb-0 "> 
+          <div class="col-md-6">
+            
+            <h3 class="ml-3">Chat</h3>
+          </div>
+          <div class="col-md-3">
+            <h5 *ngIf="proveedor=='twitter'"><span class="badge badge-info text-center">{{proveedor}}</span></h5>
+            <h5 *ngIf="proveedor=='google'"><span class="badge badge-danger text-center">{{proveedor}}</span></h5>
+            <h5 *ngIf="proveedor=='invitado'"><span class="badge badge-success text-center">{{proveedor}}</span></h5>
+          </div>
+      
+          <div class="col-md-3">
+            <button (click) = "logaut()"type="button "  class="btn btn-sm btn-outline-primary float-right mr-5">logaut</button>
+      
+          </div>
+        </div>
+        <hr class="bg-info">  
+
+          <div class="mesgs">
+            <div class="msg_history">
+
+              <div *ngFor="let chat of _sc.chats">
+
+                <div class="incoming_msg mb-3 " *ngIf="user.uid!=chat.uid" >
+                  <div class="incoming_msg_img mt-3" > <img  class="rounded-circle " src="{{chat.photo}}" alt="sunil"> </div>
+                  <div class="received_msg">
+                    <span class="badge badge-danger ml-2">{{chat.nombre}}</span>
+                    <div class="received_withd_msg ml-2 ">
+                      <p>{{chat.mensaje}}</p>
+                      <span class="time_date"> {{chat.fecha | fecha}}</span></div>
+                  </div>
+                </div>
+              <div class="outgoing_msg" *ngIf="user.uid==chat.uid">
+                <div class="incoming_msg_img mt-3 float-right mr-4" > <img  class="rounded-circle " src="{{chat.photo}}" alt="sunil"> </div>
+                <div class="sent_msg">
+                  <span class="badge badge-primary marginSend ">{{chat.nombre}}</span>
+                  <div>
+                    <p>{{chat.mensaje}}  </p>
+                    <span class="time_date">{{chat.fecha | fecha}}</span> 
+                  </div>
+                  
+                  
+                </div>
+              </div>
+              </div>
+              
+            </div>
+            <div class="type_msg">
+                  <div class="input_msg_write">
+                  <input type="text" class="write_msg " placeholder="Type a message" 
+                  name="mensaje" [(ngModel)]="mensaje" 
+                  (keyup.enter)="enviar_mensaje()"
+                  
+                  />
+                  <button class="msg_send_btn" type="button" 
+                  
+                  (click)="enviar_mensaje()"
+                  ><i class="fa fa-paper-plane 
+                    " aria-hidden="true"></i></button>
+                  </div>
+            </div>
+
+
+          </div>
+      </div>
+           
+        <p class="text-center top_spac"> Design by <a target="_blank" href="#">Villolada Molina</a></p>
+        
+      
+  </div>
+
+</div>
+
+
+
+
+

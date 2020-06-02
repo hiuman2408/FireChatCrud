@@ -1,0 +1,139 @@
+
+<div class="main-container">
+       <h3>Actualizar Empleado</h3>
+
+    <hr>
+
+
+    <div class="row text-right">
+        <div class="col">
+            <button class="btn btn-danger"
+               [routerLink]="['/crudFirestore/listar']"    >
+            <i class="fa fa-arrow-left"></i>
+            Regresar
+            </button>
+        </div>
+    </div>
+
+
+
+ <div class="animated fadeIn faster mt-5">
+
+   <form *ngIf="empleadoForm"  [formGroup]='empleadoForm'
+        (ngSubmit)="actualizarEmpleado()" >
+
+
+        <div class="form-group ml-2 mr-2">
+          <input type="text" class="form-control" formControlName="idempleado"  placeholder="IdFirestore"
+          >
+     
+     
+          
+     
+        </div>
+
+        <div class="form-group ml-2 mr-2">
+          <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese su nombre"
+          [ngClass]="{
+            'is-valid': nombre.dirty && !nombre.errors,
+            'is-invalid': nombre.dirty && nombre.errors
+          }"  >
+
+
+          <!-- Muestra si es correcto o no (bootstrap) -->
+          <div class="valid-feedback">
+            <span>¡Correcto!</span>
+          </div>
+          <div class="invalid-feedback">
+            <span *ngIf="nombre.errors?.required">Valor requerido</span>
+            <span *ngIf="nombre.errors?.minlength">Se necesitan minimo {{nombre.errors?.minlength.requiredLength}} caracteres y llevas {{nombre.errors?.minlength.actualLength}} caracteres</span>
+          </div>
+
+        </div>
+
+        <div class="form-group ml-2 mr-2">
+            <input type="text" class="form-control" formControlName="apellidos"  placeholder="Ingrese Apellidos" 
+            [ngClass]="{
+                'is-valid': apellidos.dirty && !apellidos.errors,
+                'is-invalid': apellidos.dirty && apellidos.errors
+              }" >
+
+              <!-- Muestra si es correcto o no (bootstrap) -->
+          <div class="valid-feedback">
+            <span>¡Correcto!</span>
+          </div>
+          <div class="invalid-feedback">
+            <span *ngIf="apellidos.errors?.required">Valor requerido</span>
+            <span *ngIf="apellidos.errors?.minlength">Se necesitan minimo {{apellidos.errors?.minlength.requiredLength}} caracteres y llevas {{apellidos.errors?.minlength.actualLength}} caracteres</span>
+          </div>
+
+
+        </div>
+
+        <div class="form-group ml-2 mr-2">  
+          <input type="email" class="form-control" formControlName="email"  placeholder="Enter email"
+          [ngClass]="{
+            'is-valid': email.dirty && !email.errors,
+            'is-invalid': email.dirty && email.errors
+          }" >
+
+          <div class="valid-feedback">
+            <span>¡Correcto!</span>
+          </div>
+
+          <div class="invalid-feedback">
+            <span *ngIf="email.errors?.required">Valor requerido</span>
+            <span *ngIf="email.errors?.pattern">El formato no es correcto</span>
+            <span *ngIf="email.errors?.minlength">Se necesitan minimo {{email.errors?.minlength.requiredLength}} caracteres y llevas {{email.errors?.minlength.actualLength}} caracteres</span>
+          </div>
+        </div>
+
+        <div class="form-group ml-2 mr-2">
+            <select class="form-control" name="cargo" formControlName="cargo" >
+              <option value="ingeniero" >Ingeniero</option>
+              <option value="secretario">Secretaria</option>
+              <option value="limpieza">Limpieza</option>
+              <option value="seguridad">Seguridad</option>
+            
+            </select>
+          
+          
+        </div>
+        <hr>
+        <div class="form-group ml-2 mr-2">
+            
+            <button *ngIf="empleado.estado" 
+                  (click)="empleado.estado = false"
+                    class="btn btn-outline-success w-30" type="button">
+                    <i class="fa fa-smile-o"></i>
+              Activo
+            </button>
+
+            <button  *ngIf="!empleado.estado" 
+                    (click)="empleado.estado = true"
+          
+                    class="btn btn-outline-danger w-30" type="button">
+                    <i class="fa fa-ban"></i>
+                Vacaciones
+            </button>
+
+          </div>
+
+      
+  
+        <div class="float-right ml-2 mr-2">
+        <button type="button" class="btn btn-secondary " [routerLink]="['crudFirestore/listar']" routerLinkActive="router-link-active" >Close</button>
+        <button type="submit" [disabled]="!empleadoForm.valid"  class="btn btn-outline-primary ml-2 ">Actualizar</button>
+
+        </div>
+
+    
+ </form>
+
+
+    <div>
+
+
+
+</div>
+

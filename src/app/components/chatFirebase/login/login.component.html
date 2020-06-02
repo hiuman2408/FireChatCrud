@@ -1,0 +1,65 @@
+
+
+<div id="logreg-forms" >
+   
+        <h1 class="h3  font-weight-normal" style="text-align: center"> LOGIN</h1>
+        <div class="social-login">
+            <button (click)="onLoginFirebase('twitter')"
+                class="btn twitter-btn social-btn" type="button">
+                <span><i class="fa fa-twitter"></i>
+                    Iniciar con twitter
+                </span> 
+            </button>
+            <button (click)="onLoginFirebase('google')"
+            class="btn google-btn social-btn ml-2" type="button">
+                <span><i class="fa fa-google"></i> Iniciar Secion Google
+                </span> 
+            </button>
+        </div>
+
+        <form class="form-signin"   [formGroup]='loginform' (ngSubmit)="onLoginFirebase('usuario')">
+        
+        <div class="form-group" >
+            <input  type="email"  formControlName="email"  class="form-control mt-5 " placeholder="Email address"
+
+            [ngClass]="{
+                'is-valid': email.dirty && !email.errors,
+                'is-invalid': email.dirty && email.errors
+              }">
+      
+              <div class="valid-feedback">
+                <span>¡Correcto!</span>
+              </div>
+      
+              <div class="invalid-feedback">
+                <span *ngIf="email.errors?.required">Valor requerido</span>
+                <span *ngIf="email.errors?.pattern">El formato no es correcto</span>
+                <span *ngIf="email.errors?.minlength">Se necesitan minimo {{email.errors?.minlength.requiredLength}} caracteres y llevas {{email.errors?.minlength.actualLength}} caracteres</span>
+              </div>
+          
+        </div>
+          
+            <input type="password"  formControlName="password"  class="form-control mt-2" placeholder="Password" 
+            [ngClass]="{
+                'is-valid': password.dirty && !password.errors,
+                'is-invalid': password.dirty && password.errors
+              }" >
+               <!-- Muestra si es correcto o no (bootstrap) -->
+               <div class="valid-feedback">
+                <span>¡Correcto!</span>
+              </div>
+              <div class="invalid-feedback">
+                <span *ngIf="password.errors?.required">Valor requerido</span>
+                <span *ngIf="password.errors?.minlength">Se necesitan minimo {{password.errors?.minlength.requiredLength}} caracteres y llevas {{password.errors?.minlength.actualLength}} caracteres</span>
+              </div>
+             
+        <button  class="btn btn-success btn-block mt-2" ><i class="fa fa-sign-in"></i> Login</button>
+        
+        <!-- <p>Don't have an account!</p>  -->
+        <button class="btn btn-primary btn-block mt-2" type="button" id="btn-signup"><i class="fa fa-user-plus"></i> Crear Cuenta</button>
+    </form>
+
+        
+        
+</div>
+
